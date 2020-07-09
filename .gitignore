@@ -5,3 +5,5 @@ __pycache__/
 *.py[cod]
 webhook_cert.pem
 webhook_pkey.pem
+migrations/
+DB.db

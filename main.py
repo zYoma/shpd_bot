@@ -1,28 +1,27 @@
-from flask import Flask
-# pip install Flask-SSLify
-from flask_sslify import SSLify
+
 from flask import request
 from flask import jsonify
 
+
 from config import URL
 from config import TOKEN
+from config import IP
 from config import write_json
+from config import app
+from config import sslify
+from config import db
 import requests
-import json
 
 
-app = Flask(__name__)
-sslify = SSLify(app)
-
-
-@app.route('/TOKEN/', methods=['POST'])
+@app.route(f'/{TOKEN}/', methods=['POST'])
 def index():
-	print('work!')
-	r = request.get_json()
-	write_json(r)
+    print('work!')
+    r = request.get_json()
+    write_json(r)
     return jsonify(r)
 
 
 if __name__ == '__main__':
-    app.run(host='176.57.215.48', port=443, debug=True,
+    ip_port = IP.split(':')
+    app.run(host=ip_port[0], port=ip_port[1], debug=True,
             ssl_context=('webhook_cert.pem', 'webhook_pkey.pem'))
