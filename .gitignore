@@ -7,3 +7,5 @@ webhook_cert.pem
 webhook_pkey.pem
 migrations/
 DB.db
+start_gunicorn.sh
+gunicorn_config.py

@@ -142,7 +142,7 @@ def create_contact(message):
 
 @app.route(f'/{TOKEN}/', methods=['POST'])
 def index():
-
+    print(TOKEN)
     r = request.get_json()
     write_json(r)
     # если бот вызван в inlineрежиме
@@ -214,9 +214,13 @@ def index():
                 send_event(chat_id, input='input_rx.txt')
 
             elif message == 'Добавить контакт':
-                CONTACTS[chat_id] = 'adress'
-                send_Message(
-                    chat_id, text='Ввежите данные по следующему шаблону:\n*Адрес дома* _пробел_ *контактные данные*\nЕсли не хотите добавлять данные нажмите /exit')
+                if is_admin(chat_id):
+                    CONTACTS[chat_id] = 'adress'
+                    send_Message(
+                        chat_id, text='Ввежите данные по следующему шаблону:\n*Адрес дома* _пробел_ *контактные данные*\nЕсли не хотите добавлять данные нажмите /exit')
+                else:
+                    send_Message(
+                        chat_id, text='У вас нет доступа к добавлению!')
 
             else:
                 if via_bot:
