@@ -2,7 +2,7 @@
 from flask import request
 from flask import jsonify
 from sqlalchemy import func
-
+from sqlalchemy import exc
 from models import User, Contact
 from config import URL
 from config import TOKEN
@@ -88,13 +88,19 @@ def is_admin(chat_id):
 
 def add_user(message):
     try:
-        user_hash = message.split()[1].strip().replace(' ', '')
+        user_hash = message.split()[1]
     except IndexError:
         send_Message(chat_id=261552302, text='Не верный формат!')
     else:
         user = User(user_hash=user_hash)
         db.session.add(user)
-        db.session.commit()
+        try:
+            db.session.commit()
+        except exc.IntegrityError:
+            send_Message(chat_id=261552302,
+                         text='Такой пользователь уже есть.')
+        else:
+            send_Message(chat_id=261552302, text='Пользователь добавлен!')
 
 
 def send_event(chat_id, input):
