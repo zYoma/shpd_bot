@@ -9,3 +9,4 @@ migrations/
 DB.db
 start_gunicorn.sh
 gunicorn_config.py
+start_supervisor.sh

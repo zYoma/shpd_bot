@@ -179,7 +179,7 @@ def index():
 
         return jsonify(r)
 
-    else:
+    elif 'message' in r:
         chat_id = r['message']['chat']['id']
         first_name = r['message']['from']['first_name']
         message = r['message'].get('text')
@@ -235,7 +235,7 @@ def index():
                 text = '*МТС-ШПД-БОТ*\nДля получения информации по авариям воспользуйтесь соответствующими клавишами.\nСписок аварий обновляется раз в *10 минут*.\nДля поиска контактов начните вводить сообщение:\n*@MTS_SHPD_Bot* _Адрес который ищите_'
                 send_Message(chat_id, text=text, kb=1)
 
-        return jsonify(r)
+    return jsonify(r)
 
 
 if __name__ == '__main__':
